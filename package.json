@@ -1,0 +1,25 @@
+{
+  "name": "international-chat",
+  "version": "1.0.0",
+  "description": "Chat realtime feito em NodeJS, utilizando a API do Google Translate para traduzir todas as mensagens recebidas, possibilitando a comunicação entre diferentes idiomas.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joaopiccini/International-Chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joaopiccini/International-Chat/issues"
+  },
+  "homepage": "https://github.com/joaopiccini/International-Chat#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  }
+}
