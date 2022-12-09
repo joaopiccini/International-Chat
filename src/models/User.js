@@ -1,7 +1,8 @@
+const mongoose = require('mongoose')
 const db = require('../config/dbConnect.js')
 const bcrypt = require('bcryptjs')
 
-const UserSchema = new db.Schema({
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
@@ -16,17 +17,22 @@ const UserSchema = new db.Schema({
         type: String,
         required: true
     },
+    agree: {
+        type: String,
+        required: false,
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 })
 
-UserSchema.pre('save', async (next) => {
-    const hash = await bcrypt.hash(this.password, 10)
-    this.password = hash
-    next()
-})
+// UserSchema.pre('save', async (next) => {
+//     const salt = await bcrypt.genSalt(10);
+//     const hash = await bcrypt.hash(this.password, salt);
+//     this.password = hash
+//     next()
+// })
 
 const User = db.model('User', UserSchema)
 
