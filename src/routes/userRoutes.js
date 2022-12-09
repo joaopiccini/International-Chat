@@ -1,16 +1,18 @@
 const express = require('express')
-const AuthController = require("../controllers/authController.js");
+const AuthController = require("../controllers/authController.js")
+const User = require('../models/User.js')
+const session = require('express-session')
 
 const router = express.Router();
 
 router
     .post('/register.html', AuthController.criarUser)
-    .post('/', (req, res) =>{
-        var email = AuthController.validarEmail
-        var password = AuthController.validarSenha
-        console.log(email, password)
-        if(email == 1 && password == 1){
-            req.session.login = login;
+    .post('/', async (req, res) => {
+        const { email } = req.body
+        const { password } = req.body
+        var validacaoEmail = await User.findOne({ email: email }) ? 1 : 0
+        var validacaoPassword = await User.findOne({ password: password }) ? 1 : 0
+        if(validacaoEmail == 1 && validacaoPassword == 1){
             res.render('chat')
             console.log('Usuário logado:' + req.session.login)
         }

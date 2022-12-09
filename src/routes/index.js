@@ -1,7 +1,8 @@
 const express = require('express')
-const app = require("../../server.js");
-const users = require("./userRoutes.js");
+const app = require("../../server.js")
+const users = require("./userRoutes.js")
 const user = require('../models/User.js')
+const alert = require('alert')
 
 const routes = (app) => {
 
@@ -32,6 +33,16 @@ const routes = (app) => {
         }
         else{
             res.render('register')
+        }
+    })
+
+    app.get('/chat', (req, res) =>{
+        if(req.session.email){
+            res.render('chat')
+            console.log('Usuário logado: ' + req.session.email)
+        }
+        else{
+            res.render('chat')
         }
     })
 
