@@ -4,8 +4,8 @@ const AuthController = require("../controllers/authController.js")
 const router = express.Router();
 
 router
+    .get('/logout', AuthController.desconectarUser)
     .post('/', AuthController.validarAcesso)
     .post('/register.html', AuthController.criarUser)
-    .post('/logout', AuthController.desconectarUser)
 
 module.exports = router

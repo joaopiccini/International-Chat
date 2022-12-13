@@ -1,9 +1,9 @@
 const express = require('express')
-const session = require('express-session')
 const db = require('./src/config/dbConnect.js')
 const path = require('path')
 const bodyParser = require('body-parser')
 const routes = require('./src/routes/index.js')
+const { sessionInit } = require('./src/config/sessionRedis.js')
 
 // Banco de dados
 db.on("error", console.log.bind(console, "Erro ao conectar no banco"));
@@ -17,8 +17,6 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 const port = process.env.PORT || 3000
 
-// Seções/socket
-app.use(session({secret:'gJ3VvqEESyMdQR3EKG8VQrLn'}))
 app.use(bodyParser.urlencoded({extended:true}))
 
 // Aplicação web
@@ -38,6 +36,9 @@ io.on('connection', socket => {
         socket.broadcast.emit('receivedMessage', data)
     })
 })
+
+// Sessões
+sessionInit(app)
 
 // Aplicação web
 server.listen(port, () => {

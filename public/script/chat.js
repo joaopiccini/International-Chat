@@ -18,7 +18,7 @@ socket.on('receivedMessage', function(message) {
 $('#chat').submit(function(event) {
     event.preventDefault()
 
-    var author = "joao"
+    var author = 'joao'
     var message = $('input[name=message]').val()
 
     if(author.length && message.length){
@@ -32,9 +32,10 @@ $('#chat').submit(function(event) {
         socket.emit('sendMessage', messageObject)
     }
 })
- botaoSair.addEventListener('click', function() {
+
+botaoSair.addEventListener('click', function() {
     $.ajax({
-        type: "POST",
+        type: "GET",
         url: "http://localhost:3000/logout",
         dataType: "json"
     })

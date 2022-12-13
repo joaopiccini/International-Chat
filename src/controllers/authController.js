@@ -1,6 +1,5 @@
 const User = require('../models/User.js')
 const alert = require('alert')
-const session = require('express-session')
 
 class AuthController{
 
@@ -14,7 +13,7 @@ class AuthController{
             try{
                 const user = await User.create(req.body)
                 alert('Usuário cadastrado com sucesso')
-                return res.redirect('/')
+                return res.redirect('/chat')
             }
             catch(err){
                 console.log(err)
@@ -26,25 +25,20 @@ class AuthController{
     static validarAcesso = async (req, res) => {
         const { email } = req.body
         const { password } = req.body
-        const { name } = req.body
-        var dadosValidacao = await User.findOne({ email: email })
+        var dadosValidacao = await User.findOne({ email })
         if(dadosValidacao.email == email && dadosValidacao.password == password){
-            req.session.cookie('User', name)
-            console.log(req.session.cookie)
             res.render('chat')
             console.log('Usuário logado:' + req.session.login)
         }
         else{
             alert('Usuário ou senha inválidos')
-            res.render('index')
+            return res.render('index')
         }
     }
 
     static desconectarUser = async (req, res) => {
-        req.session.destroy();
-        res.clearCookie(this.cookie, { path: '/' });
         alert('Desconectado com sucesso')
-        return res.redirect('/')
+        return res.redirect('/index.html')
     }
 
 }
